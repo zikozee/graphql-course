@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: graphql-course
+
+  threads:
+    virtual:
+      enabled: true
+
+  graphql:
+    graphiql:
+      enabled: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
