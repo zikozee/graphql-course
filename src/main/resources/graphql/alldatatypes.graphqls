@@ -4,6 +4,15 @@ type Sample {
     age: Int,
     height: Float,
     isTall: Boolean
+
+
+    # other scalar types (Extended scalars)
+    dateOfBirth: Date!,
+    salary: Long,
+    money: BigDecimal
+    noOfPencils: NonNegativeInt
+    currency: Currency
+    createdOn: DateTime
 }
 
 interface Animal {

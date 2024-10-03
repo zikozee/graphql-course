@@ -59,6 +59,13 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java-extended-scalars</artifactId>
+            <version>22.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -94,6 +101,19 @@
                             </schemaPaths>
                             <packageName>com.zee.graphqlcourse.codegen</packageName>
                             <addGeneratedAnnotation>true</addGeneratedAnnotation>
+                            <typeMapping>
+                                <NegativeInt>java.lang.Integer</NegativeInt>
+                                <NonNegativeInt>java.lang.Integer</NonNegativeInt>
+                                <NonNegativeFloat>java.lang.Double</NonNegativeFloat>
+                                <PositiveInt>java.lang.Integer</PositiveInt>
+                                <PositiveFloat>java.lang.Double</PositiveFloat>
+                                <NonPositiveFloat>java.lang.Double</NonPositiveFloat>
+                                <Long>java.lang.Long</Long>
+                                <BigDecimal>java.math.BigDecimal</BigDecimal>
+                                <Date>java.time.LocalDate</Date>
+                                <DateTime>java.time.LocalDateTime</DateTime>
+                                <Currency>java.util.Currency</Currency>
+                            </typeMapping>
                         </configuration>
                     </execution>
                 </executions>

@@ -1,0 +1,11 @@
+scalar NegativeInt
+scalar NonNegativeInt
+scalar NonNegativeFloat
+scalar PositiveInt
+scalar PositiveFloat
+scalar NonPositiveFloat
+scalar Long
+scalar BigDecimal
+scalar Date
+scalar DateTime
+scalar Currency
