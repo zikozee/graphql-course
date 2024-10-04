@@ -51,3 +51,38 @@ enum RoarIntensity {
 }
 
 union DogDuckLion = Dog | Duck | Lion
+
+
+
+input FetchSampleInput{
+    id: ID!,
+    name: String!
+}
+
+
+type SampleResponse{
+    id: ID!,
+    name: String
+}
+
+# all the reads  you do in Http
+# R in CRUD
+# getOne, readUser
+
+# a square bracket means a list
+type Query {
+    fetchSample(fetchSampleInput: FetchSampleInput, input2: BigDecimal): [Sample!]
+    fetchSample2(sample: BigDecimal): [Sample!]!
+    fetchSample3: [Sample!]!
+}
+
+# all data changes  you do in Http
+# C-create, U-update, D-delete in CRUD
+type Mutation {
+    createSample(createInput: FetchSampleInput): SampleResponse
+}
+
+# publisher-subscription model
+type Subscription {
+    createSampleNotification: Sample
+}
