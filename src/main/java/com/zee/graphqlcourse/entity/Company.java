@@ -35,6 +35,7 @@ public class Company {
     private String headOffice;
     @Column(length = 56, nullable = false)
     private String country;
+    @Column(nullable = false,length = 10)
     private BusinessType businessType;
     @CreatedDate
     private Timestamp createdAt= new Timestamp(System.currentTimeMillis());
