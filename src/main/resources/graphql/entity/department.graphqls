@@ -11,3 +11,12 @@ type DepartmentDto {
 enum Division {
     HR, SALES, TECH, CUSTOMER_SERVICE
 }
+
+input DepartmentInput {
+    name: String!,
+    departmentNo: String!,
+    companyName: String!,
+    rcNumber: String!,
+    address: AddressInput!,
+    division: Division!
+}

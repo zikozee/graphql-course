@@ -18,3 +18,17 @@ type OutsourcedDto  implements Person{
 enum Duty {
     JANITOR, ELECTRICIAN, SWEEPER
 }
+
+input OutsourcesInput {
+
+    name: String!
+    dateOfBirth: Date!
+    gender: Gender!
+    salary: BigDecimal!
+    address: [AddressInput!]
+    age: PositiveInt!
+    phone: PositiveInt
+
+    outsourceId: String!,
+    duty: Duty!
+}

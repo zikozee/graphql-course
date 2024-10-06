@@ -19,3 +19,25 @@ type EmployeeDto implements Person {
 enum  Role {
     INTERN, SUPERVISOR, MANAGER, GMD
 }
+
+input EmployeeInput {
+    name: String!,
+    dateOfBirth: Date!
+    gender: Gender!
+    salary: BigDecimal!
+    address: [AddressInput!]
+    age: PositiveInt
+    phone: String!
+
+    employeeId: String!
+    departmentNo: String!,
+    email: String!
+    role: Role!
+}
+
+input EmployeeUpdateInput {
+    employeeId: String!,
+    salary: BigDecimal!,
+    age: PositiveInt,
+    role: Role!
+}

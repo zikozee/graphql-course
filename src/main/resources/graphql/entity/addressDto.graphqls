@@ -6,3 +6,12 @@ type AddressDto {
     state: String!,
     zipCode: Int
 }
+
+input AddressInput {
+    uuid: String
+    entityId: String!,
+    street: String!,
+    city: String!,
+    state: String!,
+    zipCode: Int
+}
