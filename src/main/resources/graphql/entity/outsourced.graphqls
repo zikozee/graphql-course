@@ -1,0 +1,20 @@
+type OutsourcedDto  implements Person{
+    uuid: String!,
+    name: String!,
+    dateOfBirth: Date!
+    gender: Gender!
+    salary: BigDecimal!
+    address: [AddressDto!]
+    age: PositiveInt
+    phone: String!
+    companyName: String
+    active: Boolean!
+
+    outsourcedId: String!,
+    duty: Duty!
+
+}
+
+enum Duty {
+    JANITOR, ELECTRICIAN, SWEEPER
+}

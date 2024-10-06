@@ -1,0 +1,12 @@
+type CompanyDto {
+    uuid: String!,
+    name: String!,
+    rcNumber: String!,
+    headOffice: String!,
+    country: String!,
+    businessType: BusinessType!
+}
+
+enum BusinessType{
+    TELECOMS, BANKING, EDUCATION
+}

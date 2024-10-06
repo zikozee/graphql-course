@@ -1,0 +1,13 @@
+type DepartmentDto {
+    uuid: String!,
+    name: String!,
+    departmentNo: String!,
+    companyName: String!,
+    rcNumber: String!,
+    address: AddressDto!,
+    division: Division!
+}
+
+enum Division {
+    HR, SALES, TECH, CUSTOMER_SERVICE
+}

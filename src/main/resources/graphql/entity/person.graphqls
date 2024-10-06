@@ -1,0 +1,16 @@
+interface Person {
+    uuid: String!,
+    name: String!,
+    dateOfBirth: Date!
+    gender: Gender!
+    salary: BigDecimal!
+    address: [AddressDto!]
+    age: PositiveInt
+    phone: String!
+    companyName: String
+    active: Boolean!
+}
+
+enum Gender {
+    MALE, FEMALE
+}

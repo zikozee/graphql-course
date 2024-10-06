@@ -1,0 +1,8 @@
+type AddressDto {
+    uuid: String!,
+    entityId: String!,
+    street: String!,
+    city: String!,
+    state: String!,
+    zipCode: Int
+}
