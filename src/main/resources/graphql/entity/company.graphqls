@@ -18,3 +18,9 @@ input CompanyInput {
     country: String!,
     businessType: BusinessType!
 }
+
+type AllCompanyResponse implements Response {
+    success: Boolean!,
+    message: String,
+    companies: [CompanyDto!]
+}

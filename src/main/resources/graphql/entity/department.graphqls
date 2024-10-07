@@ -20,3 +20,9 @@ input DepartmentInput {
     address: AddressInput!,
     division: Division!
 }
+
+type DepartmentsResponse implements Response {
+    success: Boolean!,
+    message: String,
+    departments: [DepartmentDto!]
+}
