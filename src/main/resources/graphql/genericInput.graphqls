@@ -1,0 +1,19 @@
+input EmployeeOutsourcedInput {
+
+    name: String!,
+    dateOfBirth: Date!
+    gender: Gender!
+    salary: BigDecimal!
+    address: [AddressInput!]
+    age: PositiveInt!
+    phone: String!
+    companyName: String!
+
+    employeeId: String,
+    departmentNo: String,
+    email: String,
+    role: Role
+
+    outsourceId: String,
+    duty: Duty
+}

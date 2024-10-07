@@ -1,0 +1,8 @@
+type Mutation {
+    createCompany(companyInput: CompanyInput!): CreationResponse!
+    createDepartment(departmentInput: DepartmentInput!): CreationResponse!
+
+    createEmployee(employeeOutsourced: EmployeeOutsourcedInput): CreationResponse!
+    updateExistingEmployeeAddress(addressInput: AddressInput!): CreationResponse!
+    updateEmployeeDetails(employeeUpdate: EmployeeUpdateInput): CreationResponse!
+}

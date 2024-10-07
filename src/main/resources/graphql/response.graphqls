@@ -2,3 +2,9 @@ interface Response {
     success: Boolean!,
     message: String
 }
+
+type CreationResponse implements Response {
+    success: Boolean!,
+    message: String,
+    uuid: String!
+}
