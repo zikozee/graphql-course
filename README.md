@@ -15,3 +15,5 @@
 - SubscriptionMapping(value="books") :: SchemaMapping(typeName="Subscription", field="books")
 
 
+# annotation comparison
+- @RequestBody - @Argument
