@@ -70,7 +70,7 @@ type SampleResponse{
 # getOne, readUser
 
 # a square bracket means a list
-type Query {
+type SampleQuery {
     fetchSample(fetchSampleInput: FetchSampleInput, input2: BigDecimal): [Sample!]
     fetchSample2(sample: BigDecimal): [Sample!]!
     fetchSample3: [Sample!]!
@@ -78,7 +78,7 @@ type Query {
 
 # all data changes  you do in Http
 # C-create, U-update, D-delete in CRUD
-type Mutation {
+type SampleMutation {
     createSample(createInput: FetchSampleInput): SampleResponse
 }
 
