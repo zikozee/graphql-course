@@ -8,14 +8,18 @@ package com.zee.graphqlcourse.api;
 import com.zee.graphqlcourse.codegen.DgsConstants;
 import com.zee.graphqlcourse.codegen.types.CompanyInput;
 import com.zee.graphqlcourse.codegen.types.CreationResponse;
+import com.zee.graphqlcourse.service.CompanyService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
 @Controller
+@RequiredArgsConstructor
 public class CompanyController {
 
+    private final CompanyService companyService;
 
     @SchemaMapping(
             typeName = DgsConstants.MUTATION.TYPE_NAME,
@@ -23,7 +27,7 @@ public class CompanyController {
     )
 //    @MutationMapping(value = DgsConstants.MUTATION.CreateCompany)
     public CreationResponse createCompany(@Argument(value = "companyInput") CompanyInput input) {
-        return null;
+        return companyService.createCompany(input);
     }
 
 

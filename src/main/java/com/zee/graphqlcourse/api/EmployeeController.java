@@ -6,6 +6,8 @@ import com.zee.graphqlcourse.codegen.types.CreationResponse;
 import com.zee.graphqlcourse.codegen.types.EmployeeOutsourcedInput;
 
 import com.zee.graphqlcourse.codegen.types.EmployeeUpdateInput;
+import com.zee.graphqlcourse.service.EmployeeOutsourcedService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
@@ -16,14 +18,17 @@ import org.springframework.stereotype.Controller;
  */
 
 @Controller
+@RequiredArgsConstructor
 public class EmployeeController {
+
+    private final EmployeeOutsourcedService service;
 
     @SchemaMapping(
             typeName = DgsConstants.MUTATION.TYPE_NAME,
             field = DgsConstants.MUTATION.CreateEmployee
     )
     public CreationResponse createEmployee(@Argument(value = "employeeOutsourced") EmployeeOutsourcedInput input) {
-        return null;
+        return service.createEmployeeOutsourced(input);
     }
 
     @SchemaMapping(
@@ -31,7 +36,7 @@ public class EmployeeController {
             field = DgsConstants.MUTATION.UpdateExistingEmployeeAddress
     )
     public CreationResponse updateExistingEmployeeAddress(@Argument(value = "addressInput") AddressInput input) {
-        return null;
+        return service.updateExistingEmployeeAddress(input);
     }
 
     @SchemaMapping(
@@ -39,7 +44,7 @@ public class EmployeeController {
             field = DgsConstants.MUTATION.UpdateEmployeeDetails
     )
     public CreationResponse updateEmployeeDetails(@Argument(value = "employeeUpdate") EmployeeUpdateInput input) {
-        return null;
+        return service.updateEmployeeDetails(input);
     }
 
 }
