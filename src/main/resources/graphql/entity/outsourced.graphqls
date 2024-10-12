@@ -10,7 +10,7 @@ type OutsourcedDto  implements Person{
     companyName: String
     active: Boolean!
 
-    outsourcedId: String!,
+    outsourceId: String!,
     duty: Duty!
 
 }
