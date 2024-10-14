@@ -100,6 +100,7 @@ public class EmployeeOutsourcedService {
             throw new RuntimeException("address for employee with id: '" + input.getEntityId() +"'already exist");
         }
 
+        input.setUuid(foundAddress.getUuid());
         Address newAddress = mapperUtil.mapToAddressEntity(input);
         newAddress.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
         Address persistedAddress= addressService.save(newAddress);

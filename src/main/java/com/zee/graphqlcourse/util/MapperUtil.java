@@ -4,6 +4,8 @@ import com.zee.graphqlcourse.codegen.types.*;
 import com.zee.graphqlcourse.entity.*;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 /**
  * @author : Ezekiel Eromosei
  * @code @created : 12 Oct, 2024
@@ -68,6 +70,7 @@ public class MapperUtil {
     public Address mapToAddressEntity(final AddressInput input) {
         Address address = new Address();
 
+        address.setUuid(UUID.fromString(input.getUuid()));
         address.setEntityId(input.getEntityId());
         address.setStreet(input.getStreet());
         address.setCity(input.getCity());
