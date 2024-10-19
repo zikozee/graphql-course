@@ -2,6 +2,9 @@ spring:
   application:
     name: graphql-course
 
+  profiles:
+    active: ${SPRING_PROFILE}
+
   threads:
     virtual:
       enabled: true
