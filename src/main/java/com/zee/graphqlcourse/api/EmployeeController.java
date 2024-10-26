@@ -1,16 +1,15 @@
 package com.zee.graphqlcourse.api;
 
 import com.zee.graphqlcourse.codegen.DgsConstants;
-import com.zee.graphqlcourse.codegen.types.AddressInput;
-import com.zee.graphqlcourse.codegen.types.CreationResponse;
-import com.zee.graphqlcourse.codegen.types.EmployeeOutsourcedInput;
+import com.zee.graphqlcourse.codegen.types.*;
 
-import com.zee.graphqlcourse.codegen.types.EmployeeUpdateInput;
 import com.zee.graphqlcourse.service.EmployeeOutsourcedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
+
+import java.util.List;
 
 /**
  * @author : Ezekiel Eromosei
@@ -46,5 +45,37 @@ public class EmployeeController {
     public CreationResponse updateEmployeeDetails(@Argument(value = "employeeUpdate") EmployeeUpdateInput input) {
         return service.updateEmployeeDetails(input);
     }
+
+
+    @SchemaMapping(
+            typeName = DgsConstants.QUERY_TYPE,
+            field = DgsConstants.QUERY.EmployeeSearch
+    )
+    public List<Person> employeeSearch(@Argument("outsourced") Boolean outsourced) {
+        return service.employeeSearch(outsourced);
+    }
+
+    @SchemaMapping(
+            typeName = DgsConstants.QUERY_TYPE,
+            field = DgsConstants.QUERY.EmployeeSearchByStaffId
+    )
+    public Person employeeSearchByStaffId(@Argument("staffId") String id) {
+        return service.employeeSearchByStaffId(id);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

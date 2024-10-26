@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -132,4 +134,52 @@ public class EmployeeOutsourcedService {
                 .build();
     }
 
+    public List<Person> employeeSearch(Boolean outsourced) {
+        List<Person> personList = new ArrayList<>();
+
+        if(outsourced){
+            List<OutsourcedDto> outsourcedDtoList = outsourcedRepository.findAll()
+                    .stream()
+                    .map(mapperUtil::mapToOutsourcedDto)
+                    .peek(outsourcedDto -> {
+                        List<AddressDto> addressDtos = addressService.findAddressByEntityId(outsourcedDto.getOutsourceId());
+                        outsourcedDto.setAddress(addressDtos);
+                    })
+                    .toList();
+            personList.addAll(outsourcedDtoList);
+        } else {
+            List<EmployeeDto> employeeDtos = employeeRepository.findAll()
+                    .stream()
+                    .map(mapperUtil::mapToEmployeeDto)
+                    .peek(employeeDto -> {
+                        List<AddressDto> addressDtos = addressService.findAddressByEntityId(employeeDto.getEmployeeId());
+                        employeeDto.setAddress(addressDtos);
+                    })
+                    .toList();
+            personList.addAll(employeeDtos);
+        }
+        return personList;
+    }
+
+
+    public Person employeeSearchByStaffId(String id) {
+
+        Optional<Employee> optionalEmployee = employeeRepository.findByEmployeeId(id);
+
+        Outsourced outsourced = null;
+        if(optionalEmployee.isEmpty()){
+            outsourced = outsourcedRepository.findByOutsourceId(id)
+                    .orElseThrow(() -> new RuntimeException("Employee with id '" + id + "' not found"));
+        }
+
+        if(optionalEmployee.isPresent()){
+            EmployeeDto employeeDto = mapperUtil.mapToEmployeeDto(optionalEmployee.get());
+            employeeDto.setAddress(addressService.findAddressByEntityId(employeeDto.getEmployeeId()));
+            return employeeDto;
+        }else {
+            OutsourcedDto outsourcedDto = mapperUtil.mapToOutsourcedDto(outsourced);
+            outsourcedDto.setAddress(addressService.findAddressByEntityId(outsourcedDto.getOutsourceId()));
+            return outsourcedDto;
+        }
+    }
 }

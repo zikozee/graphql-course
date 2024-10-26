@@ -6,6 +6,7 @@ package com.zee.graphqlcourse.api;
  */
 
 import com.zee.graphqlcourse.codegen.DgsConstants;
+import com.zee.graphqlcourse.codegen.types.AllCompanyResponse;
 import com.zee.graphqlcourse.codegen.types.CompanyInput;
 import com.zee.graphqlcourse.codegen.types.CreationResponse;
 import com.zee.graphqlcourse.service.CompanyService;
@@ -29,6 +30,19 @@ public class CompanyController {
     public CreationResponse createCompany(@Argument(value = "companyInput") CompanyInput input) {
         return companyService.createCompany(input);
     }
+
+
+    @SchemaMapping(
+            typeName = DgsConstants.QUERY_TYPE,
+            field = DgsConstants.QUERY.FetchAllCompany
+    )
+    public AllCompanyResponse fetchAllCompany() {
+        return companyService.fetchAllCompany();
+    }
+
+
+
+
 
 
 }

@@ -1,13 +1,14 @@
 package com.zee.graphqlcourse.service;
 
-import com.zee.graphqlcourse.codegen.types.CreationResponse;
-import com.zee.graphqlcourse.codegen.types.DepartmentInput;
+import com.zee.graphqlcourse.codegen.types.*;
 import com.zee.graphqlcourse.entity.Address;
 import com.zee.graphqlcourse.entity.Department;
 import com.zee.graphqlcourse.repository.DepartmentRepository;
 import com.zee.graphqlcourse.util.MapperUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author : Ezekiel Eromosei
@@ -37,5 +38,29 @@ public class DepartmentService {
                 .success(true)
                 .build();
 
+    }
+
+    public DepartmentsResponse fetchAllDepartmentsByCompanyName(String companyName) {
+        List<DepartmentDto> departmentDtos = departmentRepository.findDepartmentByCompanyName(companyName)
+                .stream()
+                .map(mapperUtil::mapToDepartmentDto)
+                .peek(departmentDto -> {
+                    List<AddressDto> addressDtos = addressService.findAddressByEntityId(departmentDto.getDepartmentNo());
+                    departmentDto.setAddress(addressDtos.getFirst());
+                })
+                .toList();
+
+        if(departmentDtos.isEmpty()) {
+            return DepartmentsResponse.newBuilder()
+                    .message("No departments found with companyName " + companyName)
+                    .success(false)
+                    .build();
+        }
+
+        return DepartmentsResponse.newBuilder()
+                .success(true)
+                .message("Departments under '" + companyName + "' retrieved successfully")
+                .departments(departmentDtos)
+                .build();
     }
 }
