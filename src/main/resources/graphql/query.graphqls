@@ -6,4 +6,9 @@ type Query {
     employeeSearchByStaffId(staffId: String!): Person
 
     employeeWithCompanySearch(employeeId: String!): [PersonAndEntitySearch]
+
+    fetchEmployeesUsingHeaders: [EmployeeDto]
+    fetchOutsourcedUsingHeaders: [OutsourcedDto]
+    fetchEmployeesUsingHeadersAndArgument(staffIds: [String!]!): [EmployeeDto]
+
 }
