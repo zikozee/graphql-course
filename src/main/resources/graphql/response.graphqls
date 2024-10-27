@@ -3,6 +3,8 @@ interface Response {
     message: String
 }
 
+union PersonAndEntitySearch = CompanyDto | EmployeeDto
+
 type CreationResponse implements Response {
     success: Boolean!,
     message: String,
