@@ -6,8 +6,16 @@ import com.zee.graphqlcourse.entity.Employee;
 import com.zee.graphqlcourse.entity.Outsourced;
 import com.zee.graphqlcourse.repository.EmployeeRepository;
 import com.zee.graphqlcourse.repository.OutsourcedRepository;
+import com.zee.graphqlcourse.search.SpecUtil;
+import com.zee.graphqlcourse.search.outsourced.OutsourcedSearchQuery;
 import com.zee.graphqlcourse.util.MapperUtil;
+import graphql.relay.Connection;
+import graphql.relay.SimpleListConnection;
+import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -16,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import static com.zee.graphqlcourse.search.outsourced.OutsourcedSearchQuery.OUTSOURCED_UUID;
 
 /**
  * @author : Ezekiel Eromosei
@@ -29,6 +39,7 @@ public class EmployeeOutsourcedService {
     private final OutsourcedRepository outsourcedRepository;
     private final MapperUtil mapperUtil;
     private final AddressService addressService;
+    private final OutsourcedSearchQuery outsourcedSearchQuery;
 
     public CreationResponse createEmployeeOutsourced(EmployeeOutsourcedInput input){
         return (!StringUtils.hasText(input.getOutsourceId()) && input.getDuty() == null)
@@ -180,6 +191,26 @@ public class EmployeeOutsourcedService {
             OutsourcedDto outsourcedDto = mapperUtil.mapToOutsourcedDto(outsourced);
             outsourcedDto.setAddress(addressService.findAddressByEntityId(outsourcedDto.getOutsourceId()));
             return outsourcedDto;
+        }
+    }
+
+    public Connection<Outsourced> outsourcedSearch(Optional<OutsourcedSearchInput> inputSearch, DataFetchingEnvironment dataFetchingEnvironment) {
+        
+        if(inputSearch.isPresent()){
+            List<Sort.Order> orders =  SpecUtil.buildSortOrder(inputSearch.get().getSorts());
+
+            List<Outsourced> results = outsourcedRepository.findAll(
+                  outsourcedSearchQuery.buildOutsourcedSearchParam(inputSearch.get()),
+                  Sort.by(orders)
+            );
+            return new SimpleListConnection<>(results).get(dataFetchingEnvironment);
+
+        }else {
+            Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, OUTSOURCED_UUID);
+            List<Outsourced> result = outsourcedRepository.findAll(pageable)
+                    .stream().toList();
+
+            return new SimpleListConnection<>(result).get(dataFetchingEnvironment);
         }
     }
 }

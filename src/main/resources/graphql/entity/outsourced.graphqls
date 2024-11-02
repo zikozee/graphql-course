@@ -32,3 +32,44 @@ input OutsourcesInput {
     outsourceId: String!,
     duty: Duty!
 }
+
+
+enum SortDirection {
+    ASCENDING,
+    DESCENDING
+}
+
+input SortInput {
+    field: String!
+    direction: SortDirection!
+}
+
+input OutsourcedSearchInput {
+    name: String,
+    dobStart: Date,
+    dobEnd: Date,
+    gender: Gender,
+    salaryFrom: BigDecimal,
+    salaryTo: BigDecimal,
+    ageStart: PositiveInt,
+    ageEnd: PositiveInt,
+    duty: Duty
+    sorts: [SortInput!]
+}
+
+type Outsourced  @connection {
+    uuid: String!,
+    name: String!,
+    dateOfBirth: Date!
+    gender: Gender!
+    salary: BigDecimal!
+    address: [AddressDto!]
+    age: PositiveInt
+    phone: String!
+    companyName: String
+    active: Boolean!
+
+    outsourceId: String!,
+    duty: Duty!
+
+}

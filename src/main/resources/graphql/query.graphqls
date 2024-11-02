@@ -11,4 +11,14 @@ type Query {
     fetchOutsourcedUsingHeaders: [OutsourcedDto]
     fetchEmployeesUsingHeadersAndArgument(staffIds: [String!]!): [EmployeeDto]
 
+    employeePagination(search: EmployeeSearchInput, page: Int, size: Int): EmployeePagination
+
+    outsourcedPagination(
+        search: OutsourcedSearchInput,
+        first: Int,
+        after: String,
+        last: Int,
+        before: String
+    ): OutsourcedConnection
+
 }

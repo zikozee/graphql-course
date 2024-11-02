@@ -2,6 +2,8 @@ package com.zee.graphqlcourse.util;
 
 import com.zee.graphqlcourse.codegen.types.*;
 import com.zee.graphqlcourse.entity.*;
+import com.zee.graphqlcourse.entity.Employee;
+import com.zee.graphqlcourse.entity.Outsourced;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

@@ -41,3 +41,46 @@ input EmployeeUpdateInput {
     age: PositiveInt,
     role: Role!
 }
+
+
+input EmployeeSearchInput {
+    name: String
+    dobStart: Date
+    dobEnd: Date
+    gender: Gender
+    salaryFrom: BigDecimal
+    salaryTo: BigDecimal
+    ageStart: PositiveInt
+    ageEnd: PositiveInt
+    role: Role
+}
+
+# this will be the implementation for JPA pagination
+type EmployeePagination {
+    employeeConnection: EmployeeConnection
+    page: Int!
+    size: Int!
+    totalPage: Int!
+    totalElement: Long!
+}
+
+
+# added this for pagination else the below error occurs
+#errors=[The field type 'Employee' is not present when resolving type 'EmployeeEdge'
+type Employee @connection {
+    uuid: String!,
+    name: String!,
+    dateOfBirth: Date!
+    gender: Gender!
+    salary: BigDecimal!
+    address: [AddressDto!]
+    age: PositiveInt
+    phone: String!
+    companyName: String
+    active: Boolean!
+
+    employeeId: String!
+    departmentNo: String!,
+    email: String!
+    role: Role!
+}

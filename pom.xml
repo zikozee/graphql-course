@@ -118,6 +118,7 @@
                                 <Date>java.time.LocalDate</Date>
                                 <DateTime>java.time.LocalDateTime</DateTime>
                                 <Currency>java.util.Currency</Currency>
+                                <EmployeeConnection>graphql.relay.Connection</EmployeeConnection>
                             </typeMapping>
                         </configuration>
                     </execution>

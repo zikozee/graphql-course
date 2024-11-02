@@ -2,6 +2,8 @@ package com.zee.graphqlcourse.setup;
 
 import com.zee.graphqlcourse.codegen.types.*;
 import com.zee.graphqlcourse.entity.*;
+import com.zee.graphqlcourse.entity.Employee;
+import com.zee.graphqlcourse.entity.Outsourced;
 import com.zee.graphqlcourse.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
