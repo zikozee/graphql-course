@@ -7,12 +7,14 @@ import com.zee.graphqlcourse.entity.Outsourced;
 import com.zee.graphqlcourse.repository.EmployeeRepository;
 import com.zee.graphqlcourse.repository.OutsourcedRepository;
 import com.zee.graphqlcourse.search.SpecUtil;
+import com.zee.graphqlcourse.search.employee.EmployeeSearchQuery;
 import com.zee.graphqlcourse.search.outsourced.OutsourcedSearchQuery;
 import com.zee.graphqlcourse.util.MapperUtil;
 import graphql.relay.Connection;
 import graphql.relay.SimpleListConnection;
 import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,6 +27,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.zee.graphqlcourse.search.employee.EmployeeSearchQuery.EMPLOYEE_UUID;
 import static com.zee.graphqlcourse.search.outsourced.OutsourcedSearchQuery.OUTSOURCED_UUID;
 
 /**
@@ -40,6 +43,7 @@ public class EmployeeOutsourcedService {
     private final MapperUtil mapperUtil;
     private final AddressService addressService;
     private final OutsourcedSearchQuery outsourcedSearchQuery;
+    private final EmployeeSearchQuery employeeSearchQuery;
 
     public CreationResponse createEmployeeOutsourced(EmployeeOutsourcedInput input){
         return (!StringUtils.hasText(input.getOutsourceId()) && input.getDuty() == null)
@@ -212,5 +216,35 @@ public class EmployeeOutsourcedService {
 
             return new SimpleListConnection<>(result).get(dataFetchingEnvironment);
         }
+    }
+
+    public EmployeePagination employeeSearch(Optional<EmployeeSearchInput> inputSearch, Integer page, Integer size, DataFetchingEnvironment dataFetchingEnvironment) {
+
+        if(page == null || page < 1){
+            page = 1;
+        }
+
+        if(size == null || size < 1){
+            size = 10;
+        }
+
+        Pageable pageable = PageRequest.of(page -1, size, Sort.Direction.ASC, EMPLOYEE_UUID);
+
+
+        Page<Employee> pagedEmployees = inputSearch.map(employeeSearchInput ->
+                        employeeRepository
+                                .findAll(employeeSearchQuery.buildEmployeeSearchParams(employeeSearchInput), pageable)
+                        ).orElseGet(() -> employeeRepository.findAll(pageable));
+
+        Connection<Employee> employeeConnection = new SimpleListConnection<>(pagedEmployees.getContent()).get(dataFetchingEnvironment);
+
+        EmployeePagination employeePagination = new EmployeePagination();
+        employeePagination.setEmployeeConnection(employeeConnection);
+        employeePagination.setPage(page);
+        employeePagination.setSize(size);
+        employeePagination.setTotalElement(pagedEmployees.getTotalElements());
+        employeePagination.setTotalPage(pagedEmployees.getTotalPages());
+
+        return employeePagination;
     }
 }

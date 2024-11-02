@@ -34,7 +34,7 @@ public class PaginationController {
                                                  @Argument(value = "search") Optional<EmployeeSearchInput> inputSearch,
                                                  @Argument("page") Integer page, @Argument("size") Integer size) {
 
-        return null;
+        return employeeOutsourcedService.employeeSearch(inputSearch, page, size, dataFetchingEnvironment);
     }
 
     @SchemaMapping(
