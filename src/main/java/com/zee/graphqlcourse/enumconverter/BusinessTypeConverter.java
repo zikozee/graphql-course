@@ -1,6 +1,7 @@
 package com.zee.graphqlcourse.enumconverter;
 
 import com.zee.graphqlcourse.codegen.types.BusinessType;
+import com.zee.graphqlcourse.exception.ProcessException;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
@@ -22,6 +23,6 @@ public class BusinessTypeConverter implements AttributeConverter<BusinessType, S
     public BusinessType convertToEntityAttribute(String dbData) {
         return Arrays.stream(BusinessType.values())
                 .filter(type -> type.name().equalsIgnoreCase(dbData))
-                .findFirst().orElseThrow(IllegalArgumentException::new);
+                .findFirst().orElseThrow(ProcessException::new);
     }
 }

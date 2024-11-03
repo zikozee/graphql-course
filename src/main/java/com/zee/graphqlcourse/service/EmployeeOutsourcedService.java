@@ -4,6 +4,8 @@ import com.zee.graphqlcourse.codegen.types.*;
 import com.zee.graphqlcourse.entity.Address;
 import com.zee.graphqlcourse.entity.Employee;
 import com.zee.graphqlcourse.entity.Outsourced;
+import com.zee.graphqlcourse.exception.NotFoundException;
+import com.zee.graphqlcourse.exception.ProcessException;
 import com.zee.graphqlcourse.repository.EmployeeRepository;
 import com.zee.graphqlcourse.repository.OutsourcedRepository;
 import com.zee.graphqlcourse.search.SpecUtil;
@@ -53,7 +55,7 @@ public class EmployeeOutsourcedService {
     private CreationResponse createEmployee(EmployeeOutsourcedInput input) {
         if(!StringUtils.hasText(input.getEmployeeId()) || !StringUtils.hasText(input.getDepartmentNo())
         || !StringUtils.hasText(input.getEmail()) || input.getRole() == null) {
-            throw new RuntimeException("employeeId, departmentNo, email, role is required");
+            throw new ProcessException("employeeId, departmentNo, email, role is required");
         }
 
 
@@ -105,7 +107,7 @@ public class EmployeeOutsourcedService {
 
         AddressDto foundAddress = addressService
                 .findAddressByEntityIdAndUuid(input.getEntityId(), UUID.fromString(input.getUuid()))
-                .orElseThrow(() -> new RuntimeException("address for employee with id '" + input.getEntityId() + "' not found" ));
+                .orElseThrow(() -> new NotFoundException("address for employee with id '" + input.getEntityId() + "' not found" ));
 
 
         if(input.getEntityId().trim().equalsIgnoreCase(foundAddress.getEntityId())
@@ -114,7 +116,7 @@ public class EmployeeOutsourcedService {
                 && input.getCity().trim().equalsIgnoreCase(foundAddress.getCity())
                 && input.getState().trim().equalsIgnoreCase(foundAddress.getState())
                 && input.getZipCode() == foundAddress.getZipCode()){
-            throw new RuntimeException("address for employee with id: '" + input.getEntityId() +"'already exist");
+            throw new ProcessException("address for employee with id: '" + input.getEntityId() +"'already exist");
         }
 
         input.setUuid(foundAddress.getUuid());
@@ -132,7 +134,7 @@ public class EmployeeOutsourcedService {
     public CreationResponse updateEmployeeDetails(EmployeeUpdateInput input){
 
         Employee employee = employeeRepository.findByEmployeeId(input.getEmployeeId())
-                .orElseThrow(() -> new RuntimeException("Employee with id '" + input.getEmployeeId() + "' not found"));
+                .orElseThrow(() -> new NotFoundException("Employee with id '" + input.getEmployeeId() + "' not found"));
 
 
 
@@ -184,7 +186,7 @@ public class EmployeeOutsourcedService {
         Outsourced outsourced = null;
         if(optionalEmployee.isEmpty()){
             outsourced = outsourcedRepository.findByOutsourceId(id)
-                    .orElseThrow(() -> new RuntimeException("Employee with id '" + id + "' not found"));
+                    .orElseThrow(() -> new NotFoundException("Employee with id '" + id + "' not found"));
         }
 
         if(optionalEmployee.isPresent()){

@@ -7,6 +7,7 @@ import com.zee.graphqlcourse.codegen.types.PersonAndEntitySearch;
 import com.zee.graphqlcourse.entity.Company;
 import com.zee.graphqlcourse.entity.Employee;
 import com.zee.graphqlcourse.entity.Outsourced;
+import com.zee.graphqlcourse.exception.NotFoundException;
 import com.zee.graphqlcourse.repository.CompanyRepository;
 import com.zee.graphqlcourse.repository.EmployeeRepository;
 import com.zee.graphqlcourse.repository.OutsourcedRepository;
@@ -34,13 +35,13 @@ public class CommonService {
 
     public List<PersonAndEntitySearch> employeeWithCompanySearch(String id) {
         Optional<Employee> optionalEmployee = employeeRepository.findByEmployeeId(id);
-        if(optionalEmployee.isEmpty()) throw new RuntimeException("Employee with id " + id + " not found");
+        if(optionalEmployee.isEmpty()) throw new NotFoundException("Employee with id " + id + " not found");
 
         EmployeeDto employeeDto = optionalEmployee.map(mapperUtil::mapToEmployeeDto).get();
         employeeDto.setAddress(addressService.findAddressByEntityId(employeeDto.getEmployeeId()));
 
         Company company = companyRepository.findByName(employeeDto.getCompanyName())
-                .orElseThrow(() -> new RuntimeException("Company with name " + employeeDto.getCompanyName() + " not found"));
+                .orElseThrow(() -> new NotFoundException("Company with name " + employeeDto.getCompanyName() + " not found"));
 
         CompanyDto companyDto = mapperUtil.mapToCompanyDto(company);
 

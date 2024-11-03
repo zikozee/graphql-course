@@ -1,6 +1,7 @@
 package com.zee.graphqlcourse.enumconverter;
 
 import com.zee.graphqlcourse.codegen.types.Division;
+import com.zee.graphqlcourse.exception.ProcessException;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
@@ -22,6 +23,6 @@ public class DivisionConverter implements AttributeConverter<Division, String> {
     public Division convertToEntityAttribute(String dbData) {
         return Arrays.stream(Division.values())
                 .filter(div -> div.name().equalsIgnoreCase(dbData))
-                .findFirst().orElseThrow(IllegalArgumentException::new);
+                .findFirst().orElseThrow(ProcessException::new);
     }
 }

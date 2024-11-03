@@ -2,6 +2,7 @@ package com.zee.graphqlcourse.enumconverter;
 
 import com.zee.graphqlcourse.codegen.types.Gender;
 import com.zee.graphqlcourse.codegen.types.Role;
+import com.zee.graphqlcourse.exception.ProcessException;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
@@ -23,6 +24,6 @@ public class RoleConverter implements AttributeConverter<Role, String > {
     public Role convertToEntityAttribute(String dbData) {
         return Arrays.stream(Role.values())
                 .filter(role -> role.name().equalsIgnoreCase(dbData))
-                .findFirst().orElseThrow(IllegalArgumentException::new);
+                .findFirst().orElseThrow(ProcessException::new);
     }
 }
