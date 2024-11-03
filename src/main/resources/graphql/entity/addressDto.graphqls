@@ -9,9 +9,9 @@ type AddressDto {
 
 input AddressInput {
     uuid: String
-    entityId: String!,
-    street: String!,
-    city: String!,
-    state: String!,
+    entityId: String! @NotBlank(message: "Entity Id is required") @Size(min: 3, max: 64, message: "Entity Id must be between 4 to 64 characters")
+    street: String! @NotBlank(message: "Street Id is required") @Size(min: 5, max: 50, message: "Street must be between 4 to 50 characters")
+    city: String! @NotBlank(message: "City is required") @Size(min: 3, max: 50, message: "City must be between 4 to 50 characters")
+    state: String! @NotBlank(message: "State is required") @Size(min: 3, max: 50, message: "State must be between 4 to 50 characters")
     zipCode: Int
 }

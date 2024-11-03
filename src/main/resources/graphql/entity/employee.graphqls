@@ -36,8 +36,8 @@ input EmployeeInput {
 }
 
 input EmployeeUpdateInput {
-    employeeId: String!,
-    salary: BigDecimal!,
+    employeeId: String!, @NotBlank(message: "Employee Id is required")
+    salary: BigDecimal!, @Digits(integer: 10, fraction: 4, message: "Salary cannot exceed length 10 and max decimal 4")
     age: PositiveInt,
     role: Role!
 }

@@ -1,9 +1,9 @@
 input EmployeeOutsourcedInput {
 
-    name: String!,
+    name: String!, @NotBlank(message: "name is required")
     dateOfBirth: Date!
     gender: Gender!
-    salary: BigDecimal!
+    salary: BigDecimal! @Digits(integer: 10, fraction: 4, message: "Salary cannot exceed length 10 and max decimal 4")
     address: [AddressInput!]
     age: PositiveInt!
     phone: String!

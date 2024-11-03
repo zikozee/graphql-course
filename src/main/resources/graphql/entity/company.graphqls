@@ -12,10 +12,10 @@ enum BusinessType{
 }
 
 input CompanyInput {
-    name: String!,
-    rcNumber: String!,
-    headOffice: String!,
-    country: String!,
+    name: String! @NotBlank(message: "Company Name is required") @Size(min: 5, message: "Company Name must be greater than 4 characters")
+    rcNumber: String! @NotBlank(message: "RcNumber is required") @Size(min: 4, message: "RcNumber must be greater than 4 characters")
+    headOffice: String! @NotBlank(message: "Head Office is required") @Size(min: 4, message: "HeadOffice must be greater than 4 characters")
+    country: String!,  @NotBlank(message: "Country is required") @Size(min: 4, message: "Country must be greater than 4 characters")
     businessType: BusinessType!
 }
 
