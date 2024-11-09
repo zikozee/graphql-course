@@ -83,6 +83,6 @@ type SampleMutation {
 }
 
 # publisher-subscription model
-type Subscription {
+type SampleSubscription {
     createSampleNotification: Sample
 }

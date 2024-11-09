@@ -22,6 +22,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Sinks;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class EmployeeOutsourcedService {
     private final AddressService addressService;
     private final OutsourcedSearchQuery outsourcedSearchQuery;
     private final EmployeeSearchQuery employeeSearchQuery;
+    private final Sinks.Many<EmployeeDto> employeeSink = Sinks.many().multicast().onBackpressureBuffer();
 
     public CreationResponse createEmployeeOutsourced(EmployeeOutsourcedInput input){
         return (!StringUtils.hasText(input.getOutsourceId()) && input.getDuty() == null)
@@ -71,6 +74,8 @@ public class EmployeeOutsourcedService {
                 .toList();
 
         addressService.saveAll(addressList);
+
+        employeeSink.tryEmitNext(mapperUtil.mapToEmployeeDto(persistedEmployee));
 
         return CreationResponse.newBuilder()
                 .uuid(persistedEmployee.getUuid().toString())
@@ -248,5 +253,9 @@ public class EmployeeOutsourcedService {
         employeePagination.setTotalPage(pagedEmployees.getTotalPages());
 
         return employeePagination;
+    }
+
+    public Flux<EmployeeDto> employeeDtoFlux() {
+        return employeeSink.asFlux();
     }
 }

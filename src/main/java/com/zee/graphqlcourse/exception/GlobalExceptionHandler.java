@@ -3,6 +3,8 @@ package com.zee.graphqlcourse.exception;
 
 import graphql.GraphQLError;
 import graphql.schema.DataFetchingEnvironment;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.graphql.data.method.annotation.GraphQlExceptionHandler;
 import org.springframework.graphql.execution.ErrorType;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,6 +21,16 @@ public class GlobalExceptionHandler {
     public GraphQLError exception(ProcessException ex, final DataFetchingEnvironment env) {
         return GraphQLError.newError()
                 .message(ex.getLocalizedMessage())
+                .errorType(ErrorType.BAD_REQUEST)
+                .path(env.getExecutionStepInfo().getPath())
+                .location(env.getField().getSourceLocation())
+                .build();
+    }
+
+    @GraphQlExceptionHandler(DataIntegrityViolationException.class)
+    public GraphQLError exception(DataIntegrityViolationException  ex, final DataFetchingEnvironment env) {
+        return GraphQLError.newError()
+                .message("Duplicate creation of entity")
                 .errorType(ErrorType.BAD_REQUEST)
                 .path(env.getExecutionStepInfo().getPath())
                 .location(env.getField().getSourceLocation())

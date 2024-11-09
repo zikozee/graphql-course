@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -63,6 +64,14 @@ public class EmployeeController {
         return service.employeeSearchByStaffId(id);
     }
 
+
+    @SchemaMapping(
+            typeName = DgsConstants.SUBSCRIPTION_TYPE,
+            field = DgsConstants.SUBSCRIPTION.CreateEmployee
+    )
+    public Flux<EmployeeDto> createEmployee(){
+        return service.employeeDtoFlux();
+    }
 
 
 

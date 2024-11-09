@@ -72,7 +72,9 @@ public class MapperUtil {
     public Address mapToAddressEntity(final AddressInput input) {
         Address address = new Address();
 
-        address.setUuid(UUID.fromString(input.getUuid()));
+        if(input.getUuid() != null) {
+            address.setUuid(UUID.fromString(input.getUuid()));
+        }
         address.setEntityId(input.getEntityId());
         address.setStreet(input.getStreet());
         address.setCity(input.getCity());

@@ -12,6 +12,8 @@ spring:
   graphql:
     graphiql:
       enabled: true
+    websocket:
+      path: /subscription
 
   jpa:
     hibernate:
