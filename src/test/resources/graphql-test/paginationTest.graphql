@@ -1,0 +1,16 @@
+query paginationTest(
+    $input: EmployeeSearchInput,
+    $page: Int,
+    $size: Int
+) {
+    employeePagination(
+        search: $input
+        page: $page
+        size: $size
+    ) {
+        page
+        size
+        totalPage
+        totalElement
+    }
+}

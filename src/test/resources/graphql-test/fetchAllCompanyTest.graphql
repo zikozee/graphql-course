@@ -1,0 +1,14 @@
+query fetchAllCompanyTest {
+    fetchAllCompany {
+        success
+        message
+        companies {
+            uuid
+            name,
+            rcNumber
+            headOffice
+            country
+            businessType
+        }
+    }
+}

@@ -1,0 +1,7 @@
+mutation createCompanyTest($newCompany: CompanyInput!) {
+    createCompany(companyInput: $newCompany) {
+        success
+        message
+        uuid
+    }
+}

@@ -1,0 +1,7 @@
+mutation createEmployeeTest($newEmployee: EmployeeOutsourcedInput!) {
+    createEmployee(employeeOutsourced: $newEmployee) {
+        success
+        message
+        uuid
+    }
+}
