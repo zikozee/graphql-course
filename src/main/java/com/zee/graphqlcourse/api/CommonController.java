@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.ContextValue;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -18,12 +19,14 @@ import java.util.List;
  * @code @created : 27 Oct, 2024
  */
 
+@PreAuthorize("hasAnyAuthority('read','create')")
 @Controller
 @RequiredArgsConstructor
 public class CommonController {
     private final CommonService commonService;
 
 
+    @PreAuthorize("hasAuthority('read')")
     @SchemaMapping(
             typeName = DgsConstants.QUERY_TYPE,
             field = DgsConstants.QUERY.EmployeeWithCompanySearch

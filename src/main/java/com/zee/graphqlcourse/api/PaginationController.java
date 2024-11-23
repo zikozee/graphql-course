@@ -11,6 +11,7 @@ import graphql.schema.DataFetchingEnvironment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 import java.util.Optional;
@@ -20,6 +21,7 @@ import java.util.Optional;
  * @code @created : 02 Nov, 2024
  */
 
+@PreAuthorize("hasAnyAuthority('read','create')")
 @Controller
 @RequiredArgsConstructor
 public class PaginationController {

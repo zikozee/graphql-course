@@ -25,8 +25,12 @@ import java.util.Map;
 @AutoConfigureGraphQlTester
 class QueryTest {
 
+    // use this strictly before security was introduced
+//    @Autowired
+//    GraphQlTester httpGraphQlTester;
+
     @Autowired
-    GraphQlTester httpGraphQlTester;
+    HttpGraphQlTester httpGraphQlTester;
 
     @DisplayName("fetch Employee and Company ")
     @Test

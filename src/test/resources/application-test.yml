@@ -3,3 +3,6 @@ spring:
     username: myuser
     password: secret
     url: jdbc:postgresql://localhost:5432/graphql_course
+
+  jwks:
+    uri: http://localhost:8099/oauth2/jwks
