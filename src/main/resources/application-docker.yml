@@ -2,12 +2,12 @@ spring:
   application:
     name: graphql-course
   datasource:
-    username: myuser
-    password: secret
-    url: jdbc:postgresql://localhost:5432/graphql_course
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://${HOST}:${PORT}/${DB_NAME}
 
   jwks:
-    uri: http://localhost:8099/oauth2/jwks
+    uri: http://${AUTH_SERVER_HOST}:${AUTH_SERVER_PORT}/oauth2/jwks
 
 populate:
   table:
@@ -18,7 +18,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: ${ACTUATOR_EXPOSED_ENDPOINT:health}
 
   endpoint:
     health:

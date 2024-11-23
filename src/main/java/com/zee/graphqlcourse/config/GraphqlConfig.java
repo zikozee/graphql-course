@@ -4,15 +4,19 @@ import graphql.scalars.ExtendedScalars;
 import graphql.validation.rules.OnValidationErrorStrategy;
 import graphql.validation.rules.ValidationRules;
 import graphql.validation.schemawiring.ValidationSchemaWiring;
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.graphql.execution.RuntimeWiringConfigurer;
+
+import java.util.UUID;
 
 /**
  * @author : Ezekiel Eromosei
  * @code @created : 03 Oct, 2024
  */
 
+@RegisterReflectionForBinding(value = {UUID[].class})
 @Configuration
 public class GraphqlConfig {
 
