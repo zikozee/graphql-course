@@ -65,7 +65,7 @@ jobs:
       - name: upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: graphql-demo-artifact
+          name: graphql-artifact
           path: |
             target/graphql-course
             Dockerfile
