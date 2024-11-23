@@ -59,8 +59,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: list files
-        run: ls target/**
+      - name: list files and enforce executable
+        run: |
+          ls target/** \
+          && chmod +x target/graphql-course
 
       - name: upload artifacts
         uses: actions/upload-artifact@v4
@@ -85,11 +87,8 @@ jobs:
       - name: Output downloaded contents
         run: ls && ls target/**
 
-      - name: docker install
-        run: |
-          sudo apt-get update -y &&  sudo apt-get upgrade -y && sudo apt-get install curl -y \
-          && sudo curl -fsSL https://get.docker.com -o get-docker.sh \
-          && sudo sh get-docker.sh
+
+
       - name: login
         uses: docker/login-action@v3
         with:
@@ -100,5 +99,5 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/graphql:1.0
+          tags: ${{ secrets.DOCKER_USERNAME }}/gdemo:1.0
           context: .
