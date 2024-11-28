@@ -48,7 +48,7 @@ jobs:
       - name: prepare graalvm setup and build
         run: |
           java -version && mvn -version \
-          && mvn package -DskipTests -Duser.timezone=Africa/Lagos -Djava.security.egd=file:/dev/./urandom -Dspring-boot.run.profiles=${{ vars.SPRING_PROFILE }}
+          && mvn package -DskipTests -Duser.timezone=Africa/Lagos -Djava.security.egd=file:/dev/./urandom -Dspring-boot.run.profiles=${{ vars.SPRING_PROFILES_ACTIVE }}
 
       - name: Cache local Maven repository
         uses: actions/cache@v4

@@ -37,7 +37,7 @@ spec:
         app: graphql
     spec:
       containers:
-        - image: gap:1.0
+        - image: zikozee/gjar:1.0
           name: graphql
           ports:
             - containerPort: 8080
